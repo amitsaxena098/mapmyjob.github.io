@@ -26,7 +26,7 @@
   <link href="css/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
 
   <link rel="stylesheet" href="css/style.css">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 </head>
@@ -162,8 +162,8 @@
           </div>
           <div class="col-lg-5">
             <form action="" class="d-flex">
-              <input type="text" class="rounded form-control mr-2 py-3" placeholder="Enter your email">
-              <button class="btn btn-primary rounded py-3 px-4" type="submit">Send</button>
+              <input type="text" class="rounded form-control mr-2 py-3" placeholder="Enter your email" id="txtEmail">
+              <button class="btn btn-primary rounded py-3 px-4" type="submit" id="btnSubmit">Send</button>
             </form>
           </div>
         </div>
@@ -214,7 +214,33 @@
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/jquery.sticky.js"></script>
   <script src="js/jquery.mb.YTPlayer.min.js"></script>
+ 
+  <script>
+    
+    const open7 = document.getElementById('btnSubmit');
+    
+    open7.addEventListener('click', () => {
+        var email = document.getElementById('txtEmail').value;
 
+        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email))
+        {
+            var url = "https://tranquil-beach-16780.herokuapp.com/subscribe/" + email;
+            var xmlHttp = new XMLHttpRequest();
+            xmlHttp.onreadystatechange = function() { 
+                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                        callback(xmlHttp.responseText);
+                }
+            xmlHttp.open("GET", url , true); // true for asynchronous 
+            xmlHttp.send(null);
+            alert("Your email is added to subscriber list");
+      }
+      else
+      {
+        alert("Invalid email");
+      }
+  });
+  
+  </script>
 
 
 
